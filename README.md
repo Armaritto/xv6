@@ -9,6 +9,7 @@ This repository contains starter code and instructions for xv6 labs.
 | main | General instructions |
 | fs | Large-file lab |
 | pgtbl | Page-table lab |
+| cow | Copy-On-Write lab |
 
 ## Lab goals
 
@@ -24,6 +25,9 @@ This repository contains starter code and instructions for xv6 labs.
 - Your implementation must support writing and reading 65,803 data blocks
 and correctly free allocated blocks when files are deleted or truncated.
 
+### Copy-On-Write — branch `cow`
+
+- Optimize xv6 process creation by implementing Copy-on-Write (COW) fork, allowing parent and child processes to share read-only physical memory pages tracked via reference counting. When either process attempts a write, the kernel intercepts the store page fault or `copyout` call to lazily allocate and duplicate a private writable copy of the page.
 
 ## Workflow
 
@@ -41,7 +45,12 @@ and correctly free allocated blocks when files are deleted or truncated.
 ## Build and run
 
 From the assigned lab branch, run these commands in your Linux terminal:
-
+- To install the RISC-V cross-compiler, binutils, QEMU emulator, and debugger
+```bash
+sudo apt update
+sudo apt install gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu qemu-system-misc gdb-multiarch
+```
+- To run the xv6 kernel
 ```bash
 make clean
 make qemu
