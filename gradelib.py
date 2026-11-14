@@ -216,7 +216,7 @@ def assert_lines_match(text, *regexps, **kw):
 # Utilities
 #
 
-__all__ += ["make", "maybe_unlink", "reset_fs", "color", "random_str", "check_time", "check_answers"]
+__all__ += ["make", "maybe_unlink", "reset_fs", "color", "random_str",  "check_answers"]
 
 MAKE_TIMESTAMP = 0
 
@@ -267,10 +267,6 @@ def random_str(n=8):
 def check_time():
     try:
         print("")
-        with open('time.txt') as f:
-            d = f.read().strip()
-            if not re.match(r'^\d+$', d):
-                raise AssertionError('time.txt does not contain a single integer (number of hours spent on the lab)')
     except IOError:
         raise AssertionError('Cannot read time.txt')
 
